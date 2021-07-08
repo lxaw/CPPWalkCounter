@@ -1,2 +1,18 @@
-﻿  mainApp.cpp
+﻿  Matrix.cpp
+  mainApp.cpp
+D:\Desktop\Fourier\Fourier\Matrix.cpp(98,2): warning C4018: '<': signed/unsigned mismatch
+D:\Desktop\Fourier\Fourier\Matrix.cpp(97): message : while compiling class template member function 'T Matrix<T>::getAtIndex(int) const'
+          with
+          [
+              T=int
+          ]
+D:\Desktop\Fourier\Fourier\Matrix.cpp(148): message : see reference to function template instantiation 'T Matrix<T>::getAtIndex(int) const' being compiled
+          with
+          [
+              T=int
+          ]
+D:\Desktop\Fourier\Fourier\Matrix.cpp(13): message : while compiling class template member function 'Matrix<int>::Matrix(int,int)'
+D:\Desktop\Fourier\Fourier\mainApp.cpp(12): message : see reference to function template instantiation 'Matrix<int>::Matrix(int,int)' being compiled
+D:\Desktop\Fourier\Fourier\mainApp.cpp(12): message : see reference to class template instantiation 'Matrix<int>' being compiled
+  Generating Code...
   Fourier.vcxproj -> D:\Desktop\Fourier\Debug\Fourier.exe

@@ -9,14 +9,16 @@ Written (with love) by Lex Whalen
 
 int main()
 {
-	std::cout << "3x5 matrix with random entries\n";
-	Matrix<int> m{3,5};
-	m.setRandomInt();
-	m.print();
-
-	std::cout << "Setting the identity matrix on a 4x4\n";
-	Matrix<int> m3{ 4,4 };
-	m3.setIdentity();
-	m3.print();
+	Matrix<int> mat{ 2,5};
+	mat.setRandomInt();
+	mat.print();
+//	Matrix<int> T = mat.transpose();
+//	T.print();
+//
+//	mat* T;
+	Matrix<int> mat2{ 5,1 };
+	mat2.setRandomInt();
+	mat2.print();
+	mat* mat2;
 }
 

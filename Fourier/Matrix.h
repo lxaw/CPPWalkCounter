@@ -11,7 +11,26 @@ class Matrix
 public:
 	Matrix(int rows, int cols);
 	
+	// get the index conversion from row, col
+	int getIndexFromRowCol(int row, int col);
+	// get the row from vector index
+	int getRowFromIndex(int index);
+	// get the col from vector index
+	int getColFromIndex(int index);
 /*    Methods to change the values of the matrix itself     */
+
+	// set a value at index
+	void setAtRowCol(T value, int row, int col);
+
+	T getAtRowCol(int row, int col);
+
+	int getRows() const;
+	int getCols() const;
+
+	int getSize() const;
+
+	T getAtIndex(int index) const;
+
 
 	// initializes the matrix by setting all vals to zero
 	void resetVec();
@@ -26,8 +45,9 @@ public:
 	Matrix<T> operator*(const Matrix<T>& aMatrix);
 	// transpose
 	Matrix<T> transpose();
-	// inverse of mat -- this time using Cramer's rule
+	// inverse of mat -- this time using Cramer's ruler
 	Matrix<T> inverse();
+	
 
 
 	void print();
