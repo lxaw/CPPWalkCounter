@@ -13,6 +13,7 @@ int main()
 	mat.setRandomInt();
 	mat.print();
 
-	mat.getDet();
+	int det = mat.getDet();
+	std::cout << det;
 }
 

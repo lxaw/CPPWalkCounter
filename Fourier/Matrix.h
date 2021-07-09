@@ -32,7 +32,7 @@ public:
 	T getAtIndex(int index) const;
 
 	T getCofactor(int row, int col);
-	void getDet();
+	T getDet();
 
 
 	// initializes the matrix by setting all vals to zero
@@ -55,12 +55,12 @@ public:
 
 
 	void print();
-	
+		
 
 private:
 	std::vector<T> _mat;
 
-	T getDet(std::vector<T> matVec,int rows, int cols,int sign);
+	T getDet(std::vector<T> matVec,int rows, int cols,int multiplier);
 
 	int _rows = 0;
 	int _cols = 0;

@@ -167,19 +167,19 @@ Matrix<T> Matrix<T>::operator*(const Matrix<T>& aMatrix) {
 }
 
 template <class T>
-void Matrix<T>::getDet() {
+T Matrix<T>::getDet() {
 	// we use det my cofactors here
-	getDet(_mat, _rows, _cols, 1);
+	return getDet(_mat, _rows, _cols,1);
 
-//	return ret;
 }
 
 template <class T>
-T Matrix<T>::getDet(std::vector<T> vecMat,int rows, int cols,int sign) {
+T Matrix<T>::getDet(std::vector<T> vecMat,int rows, int cols, int multiplier) {
 	if (vecMat.size() == 1) {
-		return vecMat[0];
+		return multiplier * vecMat[0];
 	}
-
+	T det = 0;
+	
 	std::vector<std::vector<T>>  subVecMats;
 	for (int i = 0;i < cols;++i){
 		std::vector<T> subVec;
@@ -191,19 +191,27 @@ T Matrix<T>::getDet(std::vector<T> vecMat,int rows, int cols,int sign) {
 		}
 		subVecMats.push_back(subVec);
 	}
-	for (auto v : subVecMats) {
-		for (int k = 0, klen = v.size();k < klen;k++) {
-			if (k % (cols - 1) == 0) {
+	for (size_t i = 0, ilen = subVecMats.size();i < ilen;++i) {
+		std::vector<T> v = subVecMats[i];
+		for (int j = 0, jlen = v.size();j < jlen;j++) {
+			if (j % (cols - 1) == 0) {
 				std::cout << "\n";
 			}
-			std::cout << v[k];
+			std::cout << v[j] << ",";
 		}
 		std::cout << "\n";
-		getDet(v,rows-1,cols-1,1);
+		int newMultiplier = multiplier * vecMat[i];
+		if (i % 2 == 1) {
+		// if odd, give negative
+			newMultiplier = newMultiplier * -1;
+		}
+		std::cout << "mult: " << newMultiplier << "\n";
+		det += getDet(v,rows-1,cols-1,newMultiplier);
+		std::cout << "new det: " << det << "\n";
 	}
 
 	
-	return 1;
+	return det;
 }
 
 template <class T>
