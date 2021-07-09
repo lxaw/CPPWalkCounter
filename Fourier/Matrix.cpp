@@ -115,6 +115,11 @@ int Matrix<T>::getSize() const {
 }
 
 template <class T>
+std::vector<T> Matrix<T>::getMat() {
+	return _mat;
+}
+
+template <class T>
 Matrix<T> Matrix<T>::transpose() {
 	Matrix<T> newMat{ _cols,_rows };
 
@@ -159,6 +164,46 @@ Matrix<T> Matrix<T>::operator*(const Matrix<T>& aMatrix) {
 	newMat.print();
 
 	return newMat;
+}
+
+template <class T>
+void Matrix<T>::getDet() {
+	// we use det my cofactors here
+	getDet(_mat, _rows, _cols, 1);
+
+//	return ret;
+}
+
+template <class T>
+T Matrix<T>::getDet(std::vector<T> vecMat,int rows, int cols,int sign) {
+	if (vecMat.size() == 1) {
+		return vecMat[0];
+	}
+
+	std::vector<std::vector<T>>  subVecMats;
+	for (int i = 0;i < cols;++i){
+		std::vector<T> subVec;
+		Matrix<T> subMat{ rows - 1,cols - 1 };
+		for (size_t j = cols, jlen = vecMat.size();j < jlen;++j) {
+			if (j% cols != i) {
+				subVec.push_back(vecMat[j]);
+			}
+		}
+		subVecMats.push_back(subVec);
+	}
+	for (auto v : subVecMats) {
+		for (int k = 0, klen = v.size();k < klen;k++) {
+			if (k % (cols - 1) == 0) {
+				std::cout << "\n";
+			}
+			std::cout << v[k];
+		}
+		std::cout << "\n";
+		getDet(v,rows-1,cols-1,1);
+	}
+
+	
+	return 1;
 }
 
 template <class T>

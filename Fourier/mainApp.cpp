@@ -9,16 +9,10 @@ Written (with love) by Lex Whalen
 
 int main()
 {
-	Matrix<int> mat{ 2,5};
+	Matrix<int> mat{4,4};
 	mat.setRandomInt();
 	mat.print();
-//	Matrix<int> T = mat.transpose();
-//	T.print();
-//
-//	mat* T;
-	Matrix<int> mat2{ 5,1 };
-	mat2.setRandomInt();
-	mat2.print();
-	mat* mat2;
+
+	mat.getDet();
 }
 

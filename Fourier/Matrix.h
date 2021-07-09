@@ -31,6 +31,9 @@ public:
 
 	T getAtIndex(int index) const;
 
+	T getCofactor(int row, int col);
+	void getDet();
+
 
 	// initializes the matrix by setting all vals to zero
 	void resetVec();
@@ -48,6 +51,7 @@ public:
 	// inverse of mat -- this time using Cramer's ruler
 	Matrix<T> inverse();
 	
+	std::vector<T> getMat();
 
 
 	void print();
@@ -55,6 +59,8 @@ public:
 
 private:
 	std::vector<T> _mat;
+
+	T getDet(std::vector<T> matVec,int rows, int cols,int sign);
 
 	int _rows = 0;
 	int _cols = 0;
