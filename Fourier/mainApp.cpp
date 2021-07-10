@@ -9,11 +9,21 @@ Written (with love) by Lex Whalen
 
 int main()
 {
-	Matrix<int> mat{4,4};
+	Matrix<double> mat{3,3};
 	mat.setRandomInt();
+
+	std::cout << "Original matrix:" << "\n";
 	mat.print();
 
-	int det = mat.getDet();
-	std::cout << det;
+	std::cout << "Determinant: " << "\n";
+	std::cout << mat.getDet() << "\n";
+
+	std::cout << "Cofactor matrix: " << "\n";
+	mat.cofactorMatrix().print();
+
+	Matrix<double> inverse = mat.invert();
+
+	std::cout << "Inverted matrix:" << "\n";
+	inverse.print();
 }
 

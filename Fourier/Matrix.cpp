@@ -22,6 +22,10 @@ Matrix<T>::Matrix(int rows, int cols) {
 
 template <class T>
 void Matrix<T>::resetVec() {
+	/*
+	This function resets a vector by clearing it and then putting zeroes in for the correct
+	amount of space held by the matrix. Not sure if vectors automatically store zeros, but we will see!
+	*/
 	assert(_rows > 0 && _cols > 0);
 	
 	// check if vec already empty
@@ -100,6 +104,13 @@ T Matrix<T>::getAtIndex(int index) const {
 }
 
 template <class T>
+void Matrix<T>::setAtIndex(T value, int index) {
+	assert(index < _mat.size());
+	
+	_mat[index] = value;
+}
+
+template <class T>
 int Matrix<T>::getCols() const{
 	return _cols;
 }
@@ -118,7 +129,7 @@ template <class T>
 std::vector<T> Matrix<T>::getMat() {
 	return _mat;
 }
-
+/***************************Common operations*******************************/
 template <class T>
 Matrix<T> Matrix<T>::transpose() {
 	Matrix<T> newMat{ _cols,_rows };
@@ -141,7 +152,7 @@ Matrix<T> Matrix<T>::operator*(const Matrix<T>& aMatrix) {
 	Matrix<T> newMat{ _rows,aMatrix.getCols()};
 
 	for (size_t i = 0, ilen = newMat.getSize();i < ilen;++i) {
-		int dotProd = 0;
+		T dotProd = 0;
 		int currRow = newMat.getRowFromIndex(i);
 		int currCol = newMat.getColFromIndex(i);
 
@@ -149,20 +160,17 @@ Matrix<T> Matrix<T>::operator*(const Matrix<T>& aMatrix) {
 			int lMat_index = currRow * _cols + j;
 			int rMat_index = currCol + (aMatrix.getCols() * j);
 
-			int lMat_val = _mat[lMat_index];
-			int rMat_val = aMatrix.getAtIndex(rMat_index);
+			T lMat_val = _mat[lMat_index];
+			T rMat_val = aMatrix.getAtIndex(rMat_index);
 
 //			std::cout << lMat_index << " "<< _mat[lMat_index] << "\n";
 //			std::cout << rMat_index << "-> " << aMatrix.getAtIndex(rMat_index) << "\n";
 			dotProd += (lMat_val * rMat_val);
 		}
 
-
+		
 		newMat.setAtRowCol(dotProd, currRow, currCol);
 	}
-
-	newMat.print();
-
 	return newMat;
 }
 
@@ -193,29 +201,84 @@ T Matrix<T>::getDet(std::vector<T> vecMat,int rows, int cols, int multiplier) {
 	}
 	for (size_t i = 0, ilen = subVecMats.size();i < ilen;++i) {
 		std::vector<T> v = subVecMats[i];
-		for (int j = 0, jlen = v.size();j < jlen;j++) {
-			if (j % (cols - 1) == 0) {
-				std::cout << "\n";
-			}
-			std::cout << v[j] << ",";
-		}
-		std::cout << "\n";
-		int newMultiplier = multiplier * vecMat[i];
+//		for (int j = 0, jlen = v.size();j < jlen;j++) {
+//			if (j % (cols - 1) == 0) {
+//				std::cout << "\n";
+//			}
+//			std::cout << v[j] << ",";
+//		}
+//		std::cout << "\n";
+		T newMultiplier = multiplier * vecMat[i];
 		if (i % 2 == 1) {
 		// if odd, give negative
 			newMultiplier = newMultiplier * -1;
 		}
-		std::cout << "mult: " << newMultiplier << "\n";
+//		std::cout << "mult: " << newMultiplier << "\n";
 		det += getDet(v,rows-1,cols-1,newMultiplier);
-		std::cout << "new det: " << det << "\n";
 	}
 
-	
 	return det;
 }
 
 template <class T>
-void Matrix<T>::print() {
+T Matrix<T>::getCofactor(int row, int col) {
+	// returns the cofactor of the partiular row & col
+	std::vector<T> subVecMat;
+
+	for (size_t i = 0, ilen = _mat.size();i < ilen;++i) {
+		if (getRowFromIndex(i) != row && getColFromIndex(i) != col) {
+			subVecMat.push_back(_mat[i]);
+		}
+	}
+	T detCofactor = getDet(subVecMat, _rows-1, _cols-1, 1);
+
+	return detCofactor;
+}
+
+template <class T>
+Matrix<T> Matrix<T>::cofactorMatrix() {
+	assert(_rows == _cols);
+
+	Matrix<T> cofactorMat{ _rows,_cols };
+
+	for(size_t i = 0, ilen = _mat.size();i < ilen;++i) {
+		int curRow = getRowFromIndex(i);
+		int curCol = getColFromIndex(i);
+		T cofactor = getCofactor(curRow, curCol);
+		if ((curRow + curCol) % 2 != 0) {
+			cofactor *= -1;
+		}
+		cofactorMat.setAtRowCol(cofactor, curRow, curCol);
+	}
+
+	return cofactorMat;
+}
+
+template <class T>
+Matrix<T> Matrix<T>::invert() {
+	assert(_rows == _cols);
+	
+	T detA = getDet();
+	// detA = 0 means no inverse
+	assert(detA != 0);
+
+	Matrix<T> cofactorMat = cofactorMatrix();
+	
+	Matrix<T> cofactorMatT = cofactorMat.transpose();
+
+	for (size_t i = 0, ilen = _mat.size();i < ilen;++i) {
+		T newVal = cofactorMatT.getAtIndex(i) / detA;
+		cofactorMatT.setAtIndex(newVal, i);
+	}
+
+	return cofactorMatT;
+}
+
+
+/***************************Common operations END*******************************/
+
+template <class T>
+void Matrix<T>::print() const{
 	assert(_rows > 0 && _cols > 0);
 	
 	for (size_t i = 0,ilen=_mat.size();i < ilen;++i) {

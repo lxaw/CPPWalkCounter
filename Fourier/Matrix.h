@@ -30,9 +30,16 @@ public:
 	int getSize() const;
 
 	T getAtIndex(int index) const;
+	void setAtIndex(T value,int index);
 
 	T getCofactor(int row, int col);
 	T getDet();
+
+	Matrix<T> cofactorMatrix();
+	
+	// returns the inverse matrix via cofactors
+	Matrix<T> invert();
+
 
 
 	// initializes the matrix by setting all vals to zero
@@ -48,13 +55,11 @@ public:
 	Matrix<T> operator*(const Matrix<T>& aMatrix);
 	// transpose
 	Matrix<T> transpose();
-	// inverse of mat -- this time using Cramer's ruler
-	Matrix<T> inverse();
 	
 	std::vector<T> getMat();
 
 
-	void print();
+	void print() const;
 		
 
 private:
