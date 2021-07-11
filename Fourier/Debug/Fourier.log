@@ -1,55 +1,25 @@
-﻿  mainApp.cpp
-D:\Desktop\Fourier\Fourier\Matrix.cpp(102,2): warning C4018: '<': signed/unsigned mismatch
-D:\Desktop\Fourier\Fourier\Matrix.cpp(101): message : while compiling class template member function 'T Matrix<T>::getAtIndex(int) const'
+﻿D:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(467,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (Fourier.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  mainApp.cpp
+  Matrix.cpp
+  WalkCounter.cpp
+D:\Desktop\Fourier\Fourier\WalkCounter.cpp(30,13): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\Desktop\Fourier\Fourier\WalkCounter.cpp(44,20): warning C4018: '<': signed/unsigned mismatch
+D:\Desktop\Fourier\Fourier\WalkCounter.cpp(71,19): warning C4018: '<': signed/unsigned mismatch
+D:\Desktop\Fourier\Fourier\WalkCounter.cpp(74,20): warning C4018: '<': signed/unsigned mismatch
+D:\Desktop\Fourier\Fourier\Matrix.cpp(113,2): warning C4018: '<': signed/unsigned mismatch
+D:\Desktop\Fourier\Fourier\Matrix.cpp(112): message : while compiling class template member function 'T Matrix<T>::getAtIndex(int) const'
           with
           [
               T=double
           ]
-D:\Desktop\Fourier\Fourier\Matrix.cpp(270): message : see reference to function template instantiation 'T Matrix<T>::getAtIndex(int) const' being compiled
+D:\Desktop\Fourier\Fourier\Matrix.cpp(180): message : see reference to function template instantiation 'T Matrix<T>::getAtIndex(int) const' being compiled
           with
           [
               T=double
           ]
-D:\Desktop\Fourier\Fourier\Matrix.cpp(13): message : while compiling class template member function 'Matrix<double>::Matrix(int,int)'
-D:\Desktop\Fourier\Fourier\mainApp.cpp(12): message : see reference to function template instantiation 'Matrix<double>::Matrix(int,int)' being compiled
-D:\Desktop\Fourier\Fourier\mainApp.cpp(12): message : see reference to class template instantiation 'Matrix<double>' being compiled
-D:\Desktop\Fourier\Fourier\Matrix.cpp(108,2): warning C4018: '<': signed/unsigned mismatch
-D:\Desktop\Fourier\Fourier\Matrix.cpp(107): message : while compiling class template member function 'void Matrix<double>::setAtIndex(T,int)'
-          with
-          [
-              T=double
-          ]
-D:\Desktop\Fourier\Fourier\Matrix.cpp(271): message : see reference to function template instantiation 'void Matrix<double>::setAtIndex(T,int)' being compiled
-          with
-          [
-              T=double
-          ]
-D:\Desktop\Fourier\Fourier\Matrix.cpp(217,33): warning C4244: 'argument': conversion from 'T' to 'int', possible loss of data
-          with
-          [
-              T=double
-          ]
-D:\Desktop\Fourier\Fourier\Matrix.cpp(185): message : while compiling class template member function 'T Matrix<T>::getDet(std::vector<double,std::allocator<double>>,int,int,int)'
-          with
-          [
-              T=double
-          ]
-D:\Desktop\Fourier\Fourier\Matrix.cpp(180): message : see reference to function template instantiation 'T Matrix<T>::getDet(std::vector<double,std::allocator<double>>,int,int,int)' being compiled
-          with
-          [
-              T=double
-          ]
-D:\Desktop\Fourier\Fourier\Matrix.cpp(93,2): warning C4018: '<': signed/unsigned mismatch
-D:\Desktop\Fourier\Fourier\Matrix.cpp(92): message : while compiling class template member function 'T Matrix<T>::getAtRowCol(int,int)'
-          with
-          [
-              T=double
-          ]
-D:\Desktop\Fourier\Fourier\Matrix.cpp(142): message : see reference to function template instantiation 'T Matrix<T>::getAtRowCol(int,int)' being compiled
-          with
-          [
-              T=double
-          ]
-D:\Desktop\Fourier\Fourier\Matrix.cpp(73): message : while compiling class template member function 'int Matrix<double>::getRowFromIndex(int)'
-D:\Desktop\Fourier\Fourier\Matrix.cpp(245): message : see reference to function template instantiation 'int Matrix<double>::getRowFromIndex(int)' being compiled
-  Fourier.vcxproj -> D:\Desktop\Fourier\Debug\Fourier.exe
+D:\Desktop\Fourier\Fourier\Matrix.cpp(15): message : while compiling class template member function 'Matrix<double>::Matrix(int,int)'
+D:\Desktop\Fourier\Fourier\WalkCounter.cpp(40): message : see reference to function template instantiation 'Matrix<double>::Matrix(int,int)' being compiled
+D:\Desktop\Fourier\Fourier\WalkCounter.h(25): message : see reference to class template instantiation 'Matrix<double>' being compiled
+  Vertex.cpp
+  Generating Code...
+  Fourier.vcxproj -> D:\Desktop\Fourier\Debug\WalkCounter.exe

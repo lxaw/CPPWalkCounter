@@ -55,6 +55,7 @@ public:
 	Matrix<T> operator*(const Matrix<T>& aMatrix);
 	// transpose
 	Matrix<T> transpose();
+
 	
 	std::vector<T> getMat();
 

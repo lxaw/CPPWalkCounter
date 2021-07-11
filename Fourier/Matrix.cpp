@@ -4,6 +4,8 @@ Written (with love) by Lex Whalen
 #include <iostream>
 #include <assert.h>
 #include <random>
+#include <math.h>
+
 
 
 #include "Matrix.h"
@@ -20,6 +22,7 @@ Matrix<T>::Matrix(int rows, int cols) {
 	resetVec();
 }
 
+// reset vectors
 template <class T>
 void Matrix<T>::resetVec() {
 	/*
@@ -38,6 +41,7 @@ void Matrix<T>::resetVec() {
 	}
 }
 
+// set the matrix to random integer values
 template <class T>
 void Matrix<T>::setRandomInt() {
 	std::random_device rd;
@@ -48,6 +52,7 @@ void Matrix<T>::setRandomInt() {
 	}
 }
 
+// set the matrix to identity
 template <class T>
 void Matrix<T>::setIdentity() {
 	assert(_rows = _cols);
@@ -64,30 +69,35 @@ void Matrix<T>::setIdentity() {
 	}
 }
 
+// gt the index from row, col form
 template <class T>
 int Matrix<T>::getIndexFromRowCol(int row, int col) {
 	// returns the correct index of the vector given row, col
 	return ((row * _mat.size() / _rows) + col);
 }
+
+// get the row from vector index
 template <class T>
 int Matrix<T>::getRowFromIndex(int index) {
 	// returns the matrix row from the index of a vector
 	return index / _cols;
 }
 
+// get the col from vector index
 template <class T>
 int Matrix<T>::getColFromIndex(int index) {
 	// returns the matrix row from the index of a vector
 	return index % _cols;
 }
 
-
+// set a value at row, col
 template <class T>
 void Matrix<T>::setAtRowCol(T value,int row, int col) {
 	int conversion = getIndexFromRowCol(row, col);
 	_mat[conversion] = value;
 }
 
+// get a value at row, co
 template <class T>
 T Matrix<T>::getAtRowCol(int row, int col) {
 	assert(row + col < _mat.size());
@@ -97,12 +107,14 @@ T Matrix<T>::getAtRowCol(int row, int col) {
 	return _mat[conversion];
 }
 
+// get a value given an index
 template <class T>
 T Matrix<T>::getAtIndex(int index) const {
 	assert(index < _mat.size());
 	return _mat[index];
 }
 
+// set a value given an index
 template <class T>
 void Matrix<T>::setAtIndex(T value, int index) {
 	assert(index < _mat.size());
@@ -110,21 +122,25 @@ void Matrix<T>::setAtIndex(T value, int index) {
 	_mat[index] = value;
 }
 
+// get the columns of the matrix
 template <class T>
 int Matrix<T>::getCols() const{
 	return _cols;
 }
 
+// get the rows of the matrix
 template <class T>
 int Matrix<T>::getRows() const {
 	return _rows;
 }
 
+// get the size of the vector of the matrix
 template <class T>
 int Matrix<T>::getSize() const {
 	return _mat.size();
 }
 
+// get the matrix vector
 template <class T>
 std::vector<T> Matrix<T>::getMat() {
 	return _mat;
