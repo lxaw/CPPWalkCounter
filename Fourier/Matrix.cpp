@@ -110,13 +110,15 @@ T Matrix<T>::getAtRowCol(int row, int col) {
 // get a value given an index
 template <class T>
 T Matrix<T>::getAtIndex(int index) const {
-	assert(index < _mat.size());
+	size_t size = _mat.size();
+	assert(index < size);
 	return _mat[index];
 }
 
 // set a value given an index
 template <class T>
 void Matrix<T>::setAtIndex(T value, int index) {
+	size_t size = _mat.size();
 	assert(index < _mat.size());
 	
 	_mat[index] = value;
@@ -163,6 +165,9 @@ Matrix<T> Matrix<T>::transpose() {
 
 template <class T>
 Matrix<T> Matrix<T>::operator*(const Matrix<T>& aMatrix) {
+	/*
+	This function performs matrix multiplication.
+	*/
 	assert(_cols == aMatrix.getRows());
 
 	Matrix<T> newMat{ _rows,aMatrix.getCols()};
@@ -192,13 +197,19 @@ Matrix<T> Matrix<T>::operator*(const Matrix<T>& aMatrix) {
 
 template <class T>
 T Matrix<T>::getDet() {
-	// we use det my cofactors here
+	// we use det by cofactors here
 	return getDet(_mat, _rows, _cols,1);
 
 }
 
 template <class T>
-T Matrix<T>::getDet(std::vector<T> vecMat,int rows, int cols, int multiplier) {
+T Matrix<T>::getDet(std::vector<T> vecMat,int rows, int cols, double multiplier) {
+	/*
+	Recursive method that gets the determinant of a matrix by splitting it up and getting determinants of the sub matrices
+	Stops with the size of the matrix is 1x1.
+
+	Represents the matrix by using a vector "vecMat".
+	*/
 	if (vecMat.size() == 1) {
 		return multiplier * vecMat[0];
 	}
@@ -210,6 +221,10 @@ T Matrix<T>::getDet(std::vector<T> vecMat,int rows, int cols, int multiplier) {
 		Matrix<T> subMat{ rows - 1,cols - 1 };
 		for (size_t j = cols, jlen = vecMat.size();j < jlen;++j) {
 			if (j% cols != i) {
+				/*
+				Splitting up the matrix into sections and getting the dets
+				See Gilbert Strang's chapter on determinates in his Linear Algebra book.
+				*/
 				subVec.push_back(vecMat[j]);
 			}
 		}
@@ -238,7 +253,10 @@ T Matrix<T>::getDet(std::vector<T> vecMat,int rows, int cols, int multiplier) {
 
 template <class T>
 T Matrix<T>::getCofactor(int row, int col) {
-	// returns the cofactor of the partiular row & col
+	/*
+	Returns the cofactor of a specific row, col
+	Cofactors are dets of size n-1
+	*/
 	std::vector<T> subVecMat;
 
 	for (size_t i = 0, ilen = _mat.size();i < ilen;++i) {
@@ -253,6 +271,9 @@ T Matrix<T>::getCofactor(int row, int col) {
 
 template <class T>
 Matrix<T> Matrix<T>::cofactorMatrix() {
+	/*
+	Iterates through matrix, gets cofactors of each index, populates a matrix and returns it.
+	*/
 	assert(_rows == _cols);
 
 	Matrix<T> cofactorMat{ _rows,_cols };
@@ -276,18 +297,27 @@ Matrix<T> Matrix<T>::invert() {
 	
 	T detA = getDet();
 	// detA = 0 means no inverse
-	assert(detA != 0);
 
-	Matrix<T> cofactorMat = cofactorMatrix();
-	
-	Matrix<T> cofactorMatT = cofactorMat.transpose();
+	if (detA != 0) {
+		/*
+		The inverse of a matrix is equal to the cofactor matrix's transpose divided by the determinant of the matrix.
+		*/
+		Matrix<T> cofactorMat = cofactorMatrix();
+		
+		Matrix<T> cofactorMatT = cofactorMat.transpose();
 
-	for (size_t i = 0, ilen = _mat.size();i < ilen;++i) {
-		T newVal = cofactorMatT.getAtIndex(i) / detA;
-		cofactorMatT.setAtIndex(newVal, i);
+		for (size_t i = 0, ilen = _mat.size();i < ilen;++i) {
+			T newVal = cofactorMatT.getAtIndex(i) / detA;
+			cofactorMatT.setAtIndex(newVal, i);
+		}
+		return cofactorMatT;
+	}
+	else {
+		// return a zero matrix of size 1x1
+		Matrix<T> zeroes { 1,1 };
+		return zeroes;
 	}
 
-	return cofactorMatT;
 }
 
 

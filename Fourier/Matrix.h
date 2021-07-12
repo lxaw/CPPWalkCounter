@@ -66,7 +66,7 @@ public:
 private:
 	std::vector<T> _mat;
 
-	T getDet(std::vector<T> matVec,int rows, int cols,int multiplier);
+	T getDet(std::vector<T> matVec,int rows, int cols,double multiplier);
 
 	int _rows = 0;
 	int _cols = 0;
